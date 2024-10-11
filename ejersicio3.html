@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Tabla en Tiempo Real</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Filtro de Tabla en Tiempo Real</h2>
+    <input type="text" id="searchInput" placeholder="Buscar en la tabla...">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Juan Pérez</td>
+                <td>28</td>
+                <td>Madrid</td>
+            </tr>
+            <tr>
+                <td>María López</td>
+                <td>34</td>
+                <td>Barcelona</td>
+            </tr>
+            <tr>
+                <td>Carlos García</td>
+                <td>22</td>
+                <td>Valencia</td>
+            </tr>
+            <tr>
+                <td>Ana Martínez</td>
+                <td>30</td>
+                <td>Sevilla</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            var input = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#dataTable tbody tr');
+
+            rows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                var match = false;
+
+                cells.forEach(function(cell) {
+                    if (cell.textContent.toLowerCase().indexOf(input) > -1) {
+                        match = true;
+                    }
+                });
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
